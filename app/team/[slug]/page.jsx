@@ -1,3 +1,6 @@
+import Spoiler from "@/components/Spoiler";
+import Testimonial from "@/components/Testimonial";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import qs from "qs";
 
 async function getTeamMember(slug) {
@@ -32,8 +35,29 @@ async function getTeamMember(slug) {
     return json.data[0];
 }
 
+function renderer(item, index) {
+    console.log(item);
+    switch (item.__component) {
+        case "features.testimonial":
+            return <Testimonial data={item} key={index} />;
+        case "features.spoiler":
+            return <Spoiler data={item} key={index} />;
+        case "features.rich-text":
+            return <BlocksRenderer content={item.content} key={index} />;
+    }
+}
+
 export default async function TeamMemberPage({ params }) {
     const member = await getTeamMember(params.slug);
-    console.log(member);
-    return <div className="prose max-w-none"></div>;
+    return (
+        <div className="prose max-w-none">
+            <h1 className="text-4xl font-bold mb-6 text-gray-700">
+                {member.name}
+            </h1>
+            <div className="grid grid-cols-2 gap-4"></div>
+            <div>
+                {member.bodyContent.map((item, index) => renderer(item, index))}
+            </div>
+        </div>
+    );
 }

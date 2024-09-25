@@ -1,7 +1,7 @@
-import "../assets/global.css";
+import "@/assets/global.css";
 
-import Link from "next/link";
-import Footer from "../components/Footer";
+import Footer from "@/components/Footer";
+import NavLink from "@/components/NavLink";
 
 export const metadata = {
     title: "Next.js",
@@ -20,18 +20,21 @@ export default function RootLayout({ children }) {
                     <header className="bg-white/50 backdrop-blur z-10">
                         <div className="max-w-4xl mx-auto flex items-center justify-between">
                             <h2 className="text-2xl text-gray-500 py-6">
-                                NextStrapi
+                                Strapi
                             </h2>
                             <nav>
                                 <ul className="flex gap-x-7 text-gray-500 text-sm">
                                     <li>
-                                        <Link href="/">Home</Link>
+                                        <NavLink text="Home" path="/" />
                                     </li>
                                     <li>
-                                        <Link href="/team">Team</Link>
+                                        <NavLink text="Our Team" path="/team" />
                                     </li>
                                     <li>
-                                        <Link href="/about">About</Link>
+                                        <NavLink
+                                            text="About Us"
+                                            path="/about"
+                                        />
                                     </li>
                                 </ul>
                             </nav>
