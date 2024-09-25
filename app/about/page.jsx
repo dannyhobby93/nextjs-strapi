@@ -1,9 +1,18 @@
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import React from "react";
 
-export default function About() {
+async function getContent() {
+    const res = await fetch("http://localhost:1337/api/about");
+    const { data } = await res.json();
+    return data.content;
+}
+
+export default async function Page() {
+    const content = await getContent();
+
     return (
-        <div className="prose max-w-none">
-            <h1>About</h1>
+        <div>
+            <BlocksRenderer content={content} />
         </div>
     );
 }
