@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
                                         <NavLink text="Home" path="/" />
                                     </li>
                                     <li>
-                                        <NavLink text="Our Team" path="/team" />
+                                        <NavLink text="Team" path="/team" />
                                     </li>
                                     <li>
                                         <NavLink

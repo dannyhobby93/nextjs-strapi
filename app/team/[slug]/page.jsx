@@ -1,6 +1,7 @@
 import Spoiler from "@/components/Spoiler";
 import Testimonial from "@/components/Testimonial";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import Link from "next/link";
 import qs from "qs";
 
 async function getTeamMember(slug) {
@@ -50,12 +51,28 @@ function renderer(item, index) {
 export default async function TeamMemberPage({ params }) {
     const member = await getTeamMember(params.slug);
     return (
-        <div className="prose max-w-none">
-            <h1 className="text-4xl font-bold mb-6 text-gray-700">
-                {member.name}
-            </h1>
-            <div className="grid grid-cols-2 gap-4"></div>
-            <div>
+        <div>
+            <div class="text-white relative bg-gray-700 px-14 py-16 -mx-8 -mt-7">
+                <h2 className="text-6xl font-bold relative z-30">
+                    {member.name}
+                </h2>
+                <img
+                    className="object-cover absolute top-0 bottom-0 left-1/2 right-0 block w-1/2 h-full opacity-50 filter grayscale"
+                    src={`http://localhost:1337${member.photo.url}`}
+                />
+                <div className="absolute z-20 w-80 bg-gradient-to-r from-gray-700 to-transparent h-full top-0 bottom-0 left-1/2"></div>
+            </div>
+
+            <div className="transform -translate-y-1/2">
+                <Link
+                    href="/team"
+                    className="text-sm bg-gray-600 text-gray-400 hover:bg-gray-500 hover:text-gray-300 inline-block rounded-lg py-3 px-5"
+                >
+                    &laquo; Back to all team members
+                </Link>
+            </div>
+
+            <div className="prose max-w-none">
                 {member.bodyContent.map((item, index) => renderer(item, index))}
             </div>
         </div>
